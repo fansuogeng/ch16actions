@@ -8,10 +8,16 @@ try {
 
     echo "Building images with build number tag: $env:BUILD_NUMBER"
     docker compose $buildComposeFiles build --pull
-    
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
     if (-not $NoPush) {
         echo "Pushing images with build number tag: $env:BUILD_NUMBER"
         docker compose $buildComposeFiles push
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
     }
 }
 finally {

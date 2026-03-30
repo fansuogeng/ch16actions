@@ -6,7 +6,7 @@ RUN npm install
 
 # test framework
 FROM build AS jest
-RUN npm install jest --save-dev
+RUN npm install jest@29.7.0 --save-dev
 
 # unit tests
 FROM jest AS test
